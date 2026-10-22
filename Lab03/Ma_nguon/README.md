@@ -1,71 +1,55 @@
-# Lab03 — Bài thực hành dành cho sinh viên
+# Lab 03 — Hiển thị sự kiện, tìm kiếm và xử lý form
 
-Nhánh này chỉ chứa một bài lab. Dùng Ubuntu/WSL, PHP từ 8.1 và Git.
+Mã mẫu cho phần hướng dẫn và mã khởi đầu cho bài tự làm.
 
-Không cần PostgreSQL hoặc Composer.
+## Mở bài
 
-## Chuẩn bị trên Ubuntu/WSL
-
-```bash
-sudo apt update
-sudo apt install php-cli git unzip
-php -v
-git --version
-```
-
-PHP cần từ 8.1 trở lên. Các lệnh bên dưới chạy trong Ubuntu/WSL. Khi tải nhiều bài, trở về thư mục cha chứa các thư mục lab trước mỗi lệnh clone; không clone bài tiếp theo bên trong `Ma_nguon` của bài trước.
-
-## Tải bài
-
-```bash
-git clone --single-branch --branch lab3 https://github.com/FIT-DNU/Open-Source-Software-Development.git lab3
-cd lab3/Ma_nguon
-```
-
-## Chạy bài
+Mở terminal Ubuntu/WSL tại thư mục chứa `lab.sh`. Dùng PHP từ 8.1 và Git. Hướng dẫn chi tiết, sơ đồ, đoạn mã cần sửa, dữ liệu đối chiếu và rubric nằm trong tài liệu của bài lab.
 
 ```bash
 bash lab.sh check
 bash lab.sh run
 ```
 
-Mở [danh sách sự kiện](http://127.0.0.1:8103/) hoặc [form đăng ký](http://127.0.0.1:8103/register.php). Giữ terminal mở; Ctrl+C để dừng.
+Mở http://127.0.0.1:8103. Giữ terminal máy chủ hoạt động; dùng terminal thứ hai để kiểm thử. Nhấn Ctrl+C để dừng.
 
-## Kiểm tra
+Bài này không cần PostgreSQL, Composer hoặc framework.
 
-Mở terminal thứ hai tại Ma_nguon, hoặc dừng máy chủ trước:
+## Kiểm tra bài
 
 ```bash
 bash lab.sh test
 bash lab.sh extend
 ```
 
-test kiểm tra phần mẫu; extend kiểm tra phần tự làm. Sinh viên cần hoàn thiện TODO; extend có thể chưa đạt ở bản khởi đầu.
+`test` kiểm tra phần mẫu; `extend` kiểm tra phần tự làm. Các vị trí TODO là nhiệm vụ cần hoàn thiện; không sửa test để bỏ qua lỗi.
 
-[Hướng dẫn đầy đủ](HUONG_DAN.md) · [Hướng dẫn mã nguồn](Ma_nguon/README.md)
+Kết quả mở rộng cần đạt: `TESTS=8 FAILED=0`. Có trang danh sách, bộ lọc theo từ khóa/loại/còn chỗ và Form đăng ký kiểm tra phía máy chủ. Dữ liệu đăng ký hợp lệ hiển thị ở mức xem trước, chưa lưu CSDL.
 
-Không đưa .local, mật khẩu hoặc dữ liệu cá nhân thật vào bài nộp.
+## Tệp nộp
 
-## Các bài khác
-
-[Lab01](https://github.com/FIT-DNU/Open-Source-Software-Development/tree/lab1) · [Lab02](https://github.com/FIT-DNU/Open-Source-Software-Development/tree/lab2) · [Lab03](https://github.com/FIT-DNU/Open-Source-Software-Development/tree/lab3) · [Lab04](https://github.com/FIT-DNU/Open-Source-Software-Development/tree/lab4) · [Lab05](https://github.com/FIT-DNU/Open-Source-Software-Development/tree/lab5)
-
-Kết quả yêu cầu của phần mẫu: `TESTS=7 FAILED=0`. `check` chỉ kiểm tra môi trường. `extend` ở bản khởi đầu còn ca chưa đạt vì TODO; không sửa test để bỏ qua lỗi.
-
-## Tự kiểm tra luồng trên trình duyệt
-
-1. Trên danh sách, tìm `php`: có 1 sự kiện. Tìm `xyz`: không có kết quả.
-2. Chọn **Đăng ký tham dự**, gửi form trống: thấy lỗi họ tên/email.
-3. Nhập tên và email thử nghiệm hợp lệ, nhấn **Kiểm tra**: thấy `PREVIEW_OK`. Đây chỉ là xem trước, chưa lưu Session hoặc CSDL.
-4. Chọn **Danh sách sự kiện** để quay lại. Bộ lọc nâng cao là phần TODO, sinh viên cần tự hoàn thiện.
+Giữ mã nguồn, dữ liệu mẫu và kiểm thử. Ghi lại lệnh chạy trong README. Không đưa `.local`, mật khẩu hoặc dữ liệu cá nhân thật vào kho mã và gói nộp. Nộp đúng commit theo yêu cầu của bài; nếu dùng Actions, đính kèm lần chạy tương ứng.
 
 
-## Giao diện Material 3 và khu thử riêng
+## Phần trình bày giao diện
 
-Sau `bash lab.sh run`, mở [sự kiện mẫu](http://127.0.0.1:8103/ui-demo.php) hoặc [thử vé/ghế](http://127.0.0.1:8103/ticket-preview.php?id=demo-open-source). Sáu sự kiện hư cấu và ảnh SVG cục bộ có giấy phép CC0. Không cần cài thêm thư viện hoặc build.
+Lab này giữ CSS cục bộ tại `public/assets/css/app.css`. HTML nằm trong `public/`; các lab có nhiều trang dùng `templates/header.php` và `templates/footer.php`. Có thể lần từ các lớp `form-field`, `event-item`, `error-summary` sang CSS để đọc cách trình bày; Lab01 chỉ dùng phần trang giới thiệu.
 
-Chi tiết sự kiện lab tại `/event.php?id=1` chỉ đọc; nút mở biểu mẫu vẫn dùng chức năng gốc. Lựa chọn demo chỉ ở bộ nhớ trang, tải lại sẽ xóa; chưa giữ ghế, tạo vé hoặc thanh toán. ID demo không đi vào Form/CSDL. TODO và các ca `extend` sinh viên vẫn giữ nguyên.
+Các lớp, nhãn và bố cục chỉ phục vụ hiển thị. Giữ nguyên khối PHP, GET/POST, tên trường, giá trị option, hidden input và thuộc tính kiểm tra đầu vào khi thực hành. Không cần JavaScript, thư viện hoặc bước build mới để chạy giao diện.
 
-Xem [hướng dẫn phần trình bày](Ma_nguon/README.md#giao-diện-material-3).
 
-Kiểm tra dữ liệu UI riêng (không thay test gốc, không cần CSDL): tại `Ma_nguon`, chạy `php tests/ui-demo.php`.
+## Giao diện Material 3
+
+Màu và kiểu chữ nằm trong `public/assets/css/tokens.css`; bố cục trong `app.css`. Không có bước build hoặc thư viện mới.
+
+Ba lớp được tách rõ:
+
+- `/`: sự kiện gốc của lab; tập kết quả, bộ lọc và form nghiệp vụ giữ nguyên.
+- `/event.php?id=1`: chi tiết chỉ đọc, bổ sung metadata hư cấu từ `data/event-content.php`. CTA mở `/register.php` không kèm tham số mới.
+- `/ui-demo.php`: sáu sự kiện hư cấu, ID `demo-...` từ `data/ui-demo-events.php`. `/ticket-preview.php?id=demo-open-source` chỉ thử vé/ghế trong bộ nhớ trang, không có form hoặc API ghi dữ liệu.
+
+Khu thử có 96 ghế cố định, 68 khả dụng (16 VIP và 52 Tiêu chuẩn). Hai vé VIP mẫu 350.000 đồng cho tổng 700.000 đồng. Đổi hạng, đổi sự kiện hoặc tải lại sẽ bỏ lựa chọn không phù hợp; không có trạng thái đã giữ chỗ.
+
+Ảnh SVG tự tạo, lưu cục bộ và ghi quyền CC0 trong `public/assets/images/LICENSE.txt`. `presentation.js` chỉ xử lý ảnh lỗi; `ticket-preview.js` chỉ chạy trên trang thử. Khi tắt JavaScript, vẫn đọc được nội dung và dùng form lab như cũ; khu chọn thử được khóa kèm giải thích.
+
+Không đưa ID demo, vé hoặc ghế vào form, Session, Cookie, CSDL hoặc test cũ. TODO sinh viên và đáp án giữ nguyên khác biệt. Không có backend bán vé, thanh toán hoặc gửi email.

@@ -1,0 +1,23 @@
+<?php
+declare(strict_types=1);
+
+function filterEvents(
+    array $events,
+    string $query,
+    string $category = '',
+    bool $availableOnly = false
+): array {
+    $result = [];
+    foreach ($events as $event) {
+        $matchesQuery = $query === '' || stripos($event['title'], $query) !== false;
+        $matchesCategory = $category === '' || $event['category'] === $category;
+        
+        $availableSpots = max(0, $event['capacity'] - $event['registered']);
+        $matchesAvailable = !$availableOnly || $availableSpots > 0;
+
+        if ($matchesQuery && $matchesCategory && $matchesAvailable) {
+            $result[] = $event;
+        }
+    }
+    return $result;
+}
